@@ -1,6 +1,7 @@
 # Weasel
 Performance oriented bot for Stoat, written with just TypeScript and Bun. Possibly replacing Silk due how bad the codebase was it in the current state.
 
+**Note:** This project is still in the early stages of development and is not yet ready for production use.
 
 To install dependencies:
 
