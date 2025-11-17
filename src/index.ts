@@ -1,9 +1,12 @@
 import { Client } from "stoat.js";
+import { findAndExecuteCommand, loadCommands } from "./commands";
 import { env } from "./env";
+import { BufferMap } from "./helpers/buffer-map";
 import logger from "./logger";
 import type { Command } from "./types";
 
 const client = new Client();
+export const commands = new BufferMap<string, Command>();
 
 (async () => {
   client
@@ -14,9 +17,12 @@ const client = new Client();
     .catch((error) => {
       logger.label("Client").error(`Failed to log in: ${error.message}`);
     });
+
+  loadCommands(commands);
 })();
 
 client.on("messageCreate", async (message) => {
+  findAndExecuteCommand(commands, message);
   return;
 });
 
