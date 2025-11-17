@@ -4,7 +4,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun run --watch ."
+    "dev": "bun run --watch .",
+    "db:push": "drizzle-kit push"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.4",
@@ -15,6 +16,7 @@
     "typescript": "^5"
   },
   "dependencies": {
+    "@libsql/client": "^0.15.15",
     "@t3-oss/env-core": "^0.13.8",
     "adze": "^2.2.5",
     "drizzle-orm": "^0.44.7",
