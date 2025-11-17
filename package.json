@@ -1,5 +1,5 @@
 {
-  "name": "bun-stoat-bot",
+  "name": "weasel",
   "module": "src/index.ts",
   "type": "module",
   "private": true,
