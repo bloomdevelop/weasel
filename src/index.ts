@@ -27,6 +27,7 @@ client.on("messageCreate", async (message) => {
 });
 
 // Small workaround since they didn't fix it unless manual patch
+// Check pull request #122 on Github (https://github.com/stoatchat/javascript-client-sdk/pull/122)
 client.on("error", (error) => {
   if (error instanceof Error) {
     logger
