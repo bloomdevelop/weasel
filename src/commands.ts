@@ -7,6 +7,7 @@ import type { BufferMap } from "./helpers/buffer-map";
 import logger from "./logger";
 import type { Command } from "./types";
 import { commandNotFoundEmbed } from "./embeds";
+import { formatSize } from "./helpers/size-formatter";
 
 export async function loadCommands(
   map: BufferMap<string, Command>,
@@ -32,18 +33,26 @@ export async function loadCommands(
           );
 
         if (command) {
-          logger.label("Commands").success(`Loaded command: ${command.name}`);
+          logger
+            .label("Commands >> Loader")
+            .success(`Loaded command: ${command.name}`);
           map.set(command.name, command);
         }
       } catch (error) {
-        logger.label("Commands").error(`Failed to load ${filePath}:`, error);
+        logger
+          .label("Commands >> Loader")
+          .error(`Failed to load ${filePath}:`, error);
       }
     }
   }
 
+  const hexBuffer = map.getRawBufferHex();
+  const bufferSizeBytes = hexBuffer.length / 2;
+  const formattedSize = formatSize(bufferSizeBytes);
+
   logger
-    .label("Commands -> BufferMap")
-    .debug(`Our BufferMap after loading: ${map.getRawBufferHex()}`);
+    .label("Commands >> BufferMap")
+    .debug(`Our BufferMap's Size after loading: ${formattedSize}`);
 }
 
 export function findAndExecuteCommand(

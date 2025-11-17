@@ -12,10 +12,10 @@ export const commands = new BufferMap<string, Command>();
   client
     .loginBot(env.STOAT_BOT_TOKEN)
     .then(() => {
-      logger.label("Client").success(`Logged in`);
+      logger.label("Client >> Bot").success(`Logged in`);
     })
     .catch((error) => {
-      logger.label("Client").error(`Failed to log in: ${error.message}`);
+      logger.label("Client >> Bot").error(`Failed to log in: ${error.message}`);
     });
 
   loadCommands(commands);
@@ -29,10 +29,12 @@ client.on("messageCreate", async (message) => {
 // Small workaround since they didn't fix it unless manual patch
 client.on("error", (error) => {
   if (error instanceof Error) {
-    logger.label("Client").error(`Received error event: ${error.message}`);
+    logger
+      .label("Client >> Event")
+      .error(`Received error event: ${error.message}`);
   }
 });
 
 client.on("connected", () => {
-  logger.label("Client").debug("Connected");
+  logger.label("Client >> Event").info("Connected");
 });
