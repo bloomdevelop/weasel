@@ -122,14 +122,6 @@ export class BufferMap<K extends string | number, V> {
   }
 
   /**
-   * Gets the raw buffer containing all serialized entries
-   * @returns A Buffer containing only the used bytes
-   */
-  getRawBuffer(): Buffer {
-    return this.buffer.subarray(0, this.currentPosition);
-  }
-
-  /**
    * Gets the hex representation of the used buffer
    * @returns Hex string representation of the buffer
    */
