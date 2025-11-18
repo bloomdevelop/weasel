@@ -24,7 +24,8 @@ const OPTIONS_EMOJIS: Array<string> = [
 
 export const poll: Command = {
   name: "poll",
-  description: "Creates a poll with options (up to 10)",
+  description:
+    "Creates a poll with options (up to 10). Polls ends only 30 seconds",
   async execute(message, args) {
     const input = args
       .join(" ")
@@ -98,6 +99,31 @@ export const poll: Command = {
           logger.label("Command >> Poll").error(error.message);
         }
       }
+
+      setTimeout(async () => {
+        const results = options.map((option, index) => {
+          if (!OPTIONS_EMOJIS[index]) return {};
+
+          return {
+            option,
+            votes: Math.max(
+              (pollMessage.reactions.get(OPTIONS_EMOJIS[index])?.size ?? 0) - 1,
+              0,
+            ),
+          };
+        });
+
+        const updatedPollEmbed = new EmbedBuilder()
+          .setTitle(`${question} - Results are in!`)
+          .setDescription(
+            `${results.map((item) => `${item.option}: ${item.votes} votes`).join("\n")}`,
+          )
+          .build();
+
+        await pollMessage.edit({
+          embeds: [updatedPollEmbed],
+        });
+      }, 3 * 10000);
     } catch (error) {
       if (error instanceof Error) {
         const errorEmbed = new EmbedBuilder()

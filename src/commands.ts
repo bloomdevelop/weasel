@@ -2,12 +2,12 @@ import { readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { Message } from "stoat.js";
+import { commandNotFoundEmbed } from "./embeds";
 import { env } from "./env";
 import type { BufferMap } from "./helpers/buffer-map";
+import { formatSize } from "./helpers/size-formatter";
 import logger from "./logger";
 import type { Command } from "./types";
-import { commandNotFoundEmbed } from "./embeds";
-import { formatSize } from "./helpers/size-formatter";
 
 export async function loadCommands(
   map: BufferMap<string, Command>,

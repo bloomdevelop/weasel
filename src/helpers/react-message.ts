@@ -13,3 +13,11 @@ export function react(message: Message, emoji: string | undefined) {
 
   return message.react(encodeURIComponent(emoji));
 }
+
+export function unreact(message: Message, emoji: string | undefined) {
+  if (!emoji) {
+    throw new Error("The emoji is undefined!");
+  }
+
+  return message.unreact(encodeURIComponent(emoji));
+}
